@@ -46,6 +46,8 @@ export default defineConfig({
   base: './',
   build: {
     assetsInlineLimit: 100_000_000,
+    copyPublicDir: false,
+    emptyOutDir: true,
   },
   plugins: [
     react(),

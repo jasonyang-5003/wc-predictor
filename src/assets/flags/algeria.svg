@@ -1,15 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 64" role="img" aria-label="DZ flag">
-  <defs>
-    <linearGradient id="shine" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0" stop-color="#fff" stop-opacity=".28"/>
-      <stop offset=".45" stop-color="#fff" stop-opacity="0"/>
-      <stop offset="1" stop-color="#000" stop-opacity=".22"/>
-    </linearGradient>
-  </defs>
-  <rect width="96" height="64" rx="8" fill="#006233"/>
-  <rect y="21.333" width="96" height="21.334" fill="#ffffff"/>
-  <rect y="42.667" width="96" height="21.333" fill="#d21034"/>
-  <rect width="96" height="64" rx="8" fill="url(#shine)"/>
-  <rect x="1.5" y="1.5" width="93" height="61" rx="6.5" fill="none" stroke="#fff" stroke-opacity=".32" stroke-width="3"/>
-  <text x="48" y="41" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="800" letter-spacing="1.5" fill="#fff" stroke="#000" stroke-opacity=".34" stroke-width="3" paint-order="stroke">DZ</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600"><path fill="#fff" d="M0 0h900v600H0z"/><path fill="#063" d="M0 0h450v600H0z"/><path fill="#d21034" d="M579.904 225a150 150 0 1 0 0 150 120 120 0 1 1 0-150m5.772 75L450 255.916l83.853 115.413V228.671L450 344.084z"/></svg>
