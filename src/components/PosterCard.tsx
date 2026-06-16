@@ -1,8 +1,6 @@
 import { forwardRef } from 'react'
 import { getTeamById } from '../data/teams'
 import type { Team } from '../data/teams'
-import trophyBackground from '../assets/poster/user-world-cup-trophy-bg.jpg'
-import ugPhoneLogo from '../assets/poster/ugphone-logo.png'
 
 interface PosterCardProps {
   championId: string;
@@ -90,26 +88,20 @@ const PosterCard = forwardRef<HTMLDivElement, PosterCardProps>(
           color: '#fff',
         }}
       >
-        <img
-          src={trophyBackground}
-          alt="FIFA World Cup trophy"
-          crossOrigin="anonymous"
-          style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            objectPosition: '50% 50%',
-            filter: 'saturate(1.1) contrast(1.08) brightness(0.9)',
-          }}
-        />
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 28%, rgba(255,214,118,0.16), transparent 34%), linear-gradient(180deg, rgba(3,5,8,0.1), rgba(3,5,8,0.32) 44%, rgba(3,5,8,0.82) 86%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center bottom, rgba(20,120,76,0.34), transparent 44%)' }} />
         <div style={{ position: 'absolute', inset: 0, opacity: 0.58, backgroundImage: 'radial-gradient(circle, rgba(255,225,145,0.95) 0 2px, transparent 2.8px), radial-gradient(circle, rgba(255,255,255,0.42) 0 1.5px, transparent 2.2px)', backgroundSize: '92px 92px, 148px 148px' }} />
         <div style={{ position: 'absolute', left: -130, top: -160, width: 560, height: 1180, transform: 'rotate(18deg)', background: 'linear-gradient(180deg, rgba(255,230,160,0.38), rgba(255,213,106,0.08) 55%, transparent)', filter: 'blur(16px)' }} />
         <div style={{ position: 'absolute', right: -130, top: -160, width: 560, height: 1180, transform: 'rotate(-18deg)', background: 'linear-gradient(180deg, rgba(255,230,160,0.34), rgba(255,213,106,0.07) 55%, transparent)', filter: 'blur(16px)' }} />
         <div style={{ position: 'absolute', left: 150, top: 210, width: 780, height: 780, borderRadius: '50%', border: '2px solid rgba(255,255,255,0.055)' }} />
         <div style={{ position: 'absolute', left: 245, top: 305, width: 590, height: 590, borderRadius: '50%', border: '1px solid rgba(231,185,87,0.16)' }} />
+
+        <div style={{ position: 'absolute', left: 280, top: 418, width: 520, height: 690, opacity: 0.18 }}>
+          <div style={{ width: 230, height: 230, margin: '0 auto', borderRadius: '50%', border: '34px solid #e7b957', borderBottomWidth: 18 }} />
+          <div style={{ width: 230, height: 470, margin: '-16px auto 0', borderRadius: '80px 80px 36px 36px', border: '36px solid #e7b957', borderTop: 0 }} />
+          <div style={{ width: 420, height: 72, margin: '-24px auto 0', borderRadius: 50, background: '#e7b957' }} />
+          <div style={{ width: 520, height: 76, margin: '12px auto 0', borderRadius: 24, background: '#e7b957' }} />
+        </div>
+
         <div style={{ position: 'absolute', left: -120, right: -120, bottom: 0, height: 480, background: 'repeating-linear-gradient(90deg, rgba(255,255,255,0.045) 0 2px, transparent 2px 104px), linear-gradient(180deg, transparent, rgba(4,8,6,0.88))', transform: 'perspective(680px) rotateX(58deg)', transformOrigin: 'bottom center' }} />
 
         <div style={{ position: 'relative', zIndex: 2, height: '100%', padding: '112px 86px 78px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -164,19 +156,11 @@ const PosterCard = forwardRef<HTMLDivElement, PosterCardProps>(
               <div style={{ fontSize: 24, fontWeight: 1000, letterSpacing: 4, color: '#ffe39a' }}>WC2026 PREDICTOR</div>
               <div style={{ marginTop: 10, fontSize: 20, fontWeight: 700, letterSpacing: 2, color: 'rgba(255,255,255,0.36)' }}>worldcup2026.predict</div>
             </div>
-            <img
-              src={ugPhoneLogo}
-              alt="UgPhone logo"
-              crossOrigin="anonymous"
-              style={{
-                width: 236,
-                height: 80,
-                objectFit: 'contain',
-                borderRadius: 18,
-                background: '#ffffff',
-                boxShadow: '0 18px 50px rgba(0,0,0,0.32)',
-              }}
-            />
+            <div style={{ width: 132, height: 132, borderRadius: 18, background: '#f5f1df', padding: 14, display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 6 }}>
+              {Array.from({ length: 25 }).map((_, index) => (
+                <div key={index} style={{ background: index % 2 === 0 || index === 7 || index === 17 ? '#091018' : 'transparent', borderRadius: 2 }} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
