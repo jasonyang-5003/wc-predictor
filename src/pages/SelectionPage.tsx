@@ -8,7 +8,7 @@ import TeamGrid from '../components/TeamGrid'
 import StepIndicator from '../components/StepIndicator'
 import { mockVoteService } from '../services/mockVoteService'
 import { useLanguage } from '../i18n/LanguageContext'
-import trophyBackground from '../assets/poster/user-world-cup-trophy-bg.jpg'
+import trophyBackground from '../assets/poster/world-cup-trophy-story-bg.jpg'
 
 export default function SelectionPage() {
   const navigate = useNavigate()
@@ -93,9 +93,6 @@ export default function SelectionPage() {
               >
                 {t.startPrediction}
               </button>
-              <div className="rounded-full border border-white/10 bg-white/[0.045] px-4 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white/56">
-                {t.storyPosterSize}
-              </div>
             </div>
           </div>
 

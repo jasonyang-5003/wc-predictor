@@ -1,6 +1,7 @@
 import { forwardRef } from 'react'
 import { getTeamById } from '../data/teams'
 import type { Team } from '../data/teams'
+import trophyStoryBackground from '../assets/poster/world-cup-trophy-story-bg.jpg'
 
 interface PosterCardProps {
   championId: string;
@@ -88,19 +89,25 @@ const PosterCard = forwardRef<HTMLDivElement, PosterCardProps>(
           color: '#fff',
         }}
       >
+        <img
+          src={trophyStoryBackground}
+          alt=""
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+          }}
+        />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.44) 0%, rgba(0,0,0,0.2) 35%, rgba(3,6,9,0.76) 68%, rgba(2,3,5,0.94) 100%)' }} />
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center bottom, rgba(20,120,76,0.34), transparent 44%)' }} />
         <div style={{ position: 'absolute', inset: 0, opacity: 0.58, backgroundImage: 'radial-gradient(circle, rgba(255,225,145,0.95) 0 2px, transparent 2.8px), radial-gradient(circle, rgba(255,255,255,0.42) 0 1.5px, transparent 2.2px)', backgroundSize: '92px 92px, 148px 148px' }} />
         <div style={{ position: 'absolute', left: -130, top: -160, width: 560, height: 1180, transform: 'rotate(18deg)', background: 'linear-gradient(180deg, rgba(255,230,160,0.38), rgba(255,213,106,0.08) 55%, transparent)', filter: 'blur(16px)' }} />
         <div style={{ position: 'absolute', right: -130, top: -160, width: 560, height: 1180, transform: 'rotate(-18deg)', background: 'linear-gradient(180deg, rgba(255,230,160,0.34), rgba(255,213,106,0.07) 55%, transparent)', filter: 'blur(16px)' }} />
         <div style={{ position: 'absolute', left: 150, top: 210, width: 780, height: 780, borderRadius: '50%', border: '2px solid rgba(255,255,255,0.055)' }} />
         <div style={{ position: 'absolute', left: 245, top: 305, width: 590, height: 590, borderRadius: '50%', border: '1px solid rgba(231,185,87,0.16)' }} />
-
-        <div style={{ position: 'absolute', left: 280, top: 418, width: 520, height: 690, opacity: 0.18 }}>
-          <div style={{ width: 230, height: 230, margin: '0 auto', borderRadius: '50%', border: '34px solid #e7b957', borderBottomWidth: 18 }} />
-          <div style={{ width: 230, height: 470, margin: '-16px auto 0', borderRadius: '80px 80px 36px 36px', border: '36px solid #e7b957', borderTop: 0 }} />
-          <div style={{ width: 420, height: 72, margin: '-24px auto 0', borderRadius: 50, background: '#e7b957' }} />
-          <div style={{ width: 520, height: 76, margin: '12px auto 0', borderRadius: 24, background: '#e7b957' }} />
-        </div>
 
         <div style={{ position: 'absolute', left: -120, right: -120, bottom: 0, height: 480, background: 'repeating-linear-gradient(90deg, rgba(255,255,255,0.045) 0 2px, transparent 2px 104px), linear-gradient(180deg, transparent, rgba(4,8,6,0.88))', transform: 'perspective(680px) rotateX(58deg)', transformOrigin: 'bottom center' }} />
 
