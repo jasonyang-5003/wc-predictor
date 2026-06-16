@@ -33,7 +33,7 @@ export function downloadBlob(blob: Blob, filename: string = 'wc2026-prediction-s
   URL.revokeObjectURL(url);
 }
 
-export async function sharePoster(blob: Blob, title: string = '2026 世界杯冠军预测'): Promise<boolean> {
+export async function sharePoster(blob: Blob, title: string = '2026 世界杯冠军预测', text: string = '来看我的 2026 世界杯冠军和亚军预测。'): Promise<boolean> {
   if (!navigator.share || !navigator.canShare) {
     return false;
   }
@@ -41,7 +41,7 @@ export async function sharePoster(blob: Blob, title: string = '2026 世界杯冠
   const file = new File([blob], 'wc2026-prediction-story.png', { type: 'image/png' });
   const shareData = {
     title,
-    text: '来看我的 2026 世界杯冠军和亚军预测。',
+    text,
     files: [file],
   };
 
