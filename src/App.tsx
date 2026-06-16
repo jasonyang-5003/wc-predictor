@@ -1,5 +1,6 @@
 import { HashRouter, Routes, Route } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
+import { Analytics } from '@vercel/analytics/react'
 import SelectionPage from './pages/SelectionPage'
 import ResultPage from './pages/ResultPage'
 import LanguageSwitcher from './components/LanguageSwitcher'
@@ -23,6 +24,7 @@ function App() {
           </AnimatePresence>
         </div>
       </HashRouter>
+      <Analytics />
     </LanguageProvider>
   )
 }
