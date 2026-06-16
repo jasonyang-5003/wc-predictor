@@ -23,16 +23,16 @@ export default function VoteChart({ stats, championId, runnerUpId, totalVotes }:
   const topStats = championStat && !initialTop.some((stat) => stat.teamId === championId)
     ? [...initialTop.slice(0, 9), championStat]
     : initialTop
-  const maxVotes = topStats.length > 0 ? topStats[0].championVotes : 1
+  const maxVotes = topStats.length > 0 ? Math.max(topStats[0].championVotes, 1) : 1
 
   return (
     <div className="w-full">
-      <div className="mb-5 flex items-end justify-between gap-4">
+      <div className="mb-6 flex items-end justify-between gap-4">
         <div>
-          <p className="text-[11px] font-black uppercase tracking-[0.22em] text-gold/70">Community Ranking</p>
-          <h3 className="mt-1 text-xl font-black text-white">冠军支持率 Top 10</h3>
+          <p className="text-[11px] font-black uppercase tracking-[0.24em] text-gold/72">Community Ranking</p>
+          <h3 className="mt-1 text-2xl font-black text-white">冠军支持率 Top 10</h3>
         </div>
-        <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-bold text-white/48">
+        <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-bold text-white/56">
           共 {totalVotes} 票
         </span>
       </div>
@@ -47,29 +47,26 @@ export default function VoteChart({ stats, championId, runnerUpId, totalVotes }:
           const barWidth = maxVotes > 0 ? (stat.championVotes / maxVotes) * 100 : 0
 
           return (
-            <motion.div
+            <div
               key={stat.teamId}
-              initial={{ opacity: 0, x: -18 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.28, delay: index * 0.045 }}
-              className={`relative overflow-hidden rounded-[16px] border p-3 ${
+              className={`ranking-row relative overflow-hidden rounded-[18px] border p-3 ${
                 isChampion
-                  ? 'border-gold/55 bg-gold/13 shadow-[0_0_28px_rgba(231,185,87,0.16)]'
+                  ? 'border-gold/60 bg-gold/14 shadow-[0_0_34px_rgba(231,185,87,0.17)]'
                   : isRunnerUp
                     ? 'border-white/18 bg-white/[0.075]'
                     : 'border-white/8 bg-white/[0.035]'
               }`}
             >
               <div className="relative z-[1] flex items-center gap-3">
-                <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-full text-xs font-black ${
-                  index === 0 ? 'bg-gold text-primary' : 'bg-white/8 text-white/55'
+                <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-full text-xs font-black ${
+                  index === 0 ? 'bg-gold text-primary' : 'bg-white/8 text-white/60'
                 }`}>
                   {index + 1}
                 </span>
-                <FlagImage team={team} className="h-8 w-11" />
+                <FlagImage team={team} className="h-8 w-12" />
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
-                    <span className={`truncate text-sm font-black ${isChampion ? 'text-gold-light' : 'text-white/86'}`}>
+                    <span className={`truncate text-sm font-black ${isChampion ? 'text-gold-light' : 'text-white/88'}`}>
                       {team.name}
                     </span>
                     {isChampion && (
@@ -78,21 +75,21 @@ export default function VoteChart({ stats, championId, runnerUpId, totalVotes }:
                       </span>
                     )}
                   </div>
-                  <div className="mt-2 h-2 overflow-hidden rounded-full bg-black/28">
+                  <div className="mt-2 h-2 overflow-hidden rounded-full bg-black/34">
                     <motion.div
-                      className={isChampion ? 'h-full rounded-full bg-gradient-to-r from-gold-dark via-gold to-gold-light' : 'h-full rounded-full bg-gradient-to-r from-cyan-500/70 to-white/50'}
+                      className={isChampion ? 'h-full rounded-full bg-linear-to-r from-gold-dark via-gold to-gold-light' : 'h-full rounded-full bg-linear-to-r from-cyan-500/70 to-white/48'}
                       initial={{ width: 0 }}
                       animate={{ width: `${barWidth}%` }}
-                      transition={{ duration: 0.7, delay: index * 0.045, ease: 'easeOut' }}
+                      transition={{ duration: 0.68, delay: index * 0.04, ease: 'easeOut' }}
                     />
                   </div>
                 </div>
-                <div className="w-14 text-right">
-                  <div className={`text-sm font-black ${isChampion ? 'text-gold-light' : 'text-white/68'}`}>{stat.percentage}%</div>
-                  <div className="text-[10px] font-bold text-white/32">{stat.championVotes} 票</div>
+                <div className="w-16 text-right">
+                  <div className={`text-sm font-black ${isChampion ? 'text-gold-light' : 'text-white/70'}`}>{stat.percentage}%</div>
+                  <div className="text-[10px] font-bold text-white/36">{stat.championVotes} 票</div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           )
         })}
       </div>

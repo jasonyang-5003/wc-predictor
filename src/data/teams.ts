@@ -1,97 +1,110 @@
+import type { LanguageCode } from '../i18n/translations'
+
+export type ConfederationCode = 'all' | 'uefa' | 'conmebol' | 'concacaf' | 'afc' | 'caf' | 'ofc'
+
 export interface Team {
   id: string;
   name: string;
   nameEn: string;
+  names: Record<LanguageCode, string>;
   flagImage: string;
-  confederation: string;
+  confederation: Exclude<ConfederationCode, 'all'>;
 }
 
-export const confederations = [
-  '全部',
-  '欧洲',
-  '南美洲',
-  '中北美',
-  '亚洲',
-  '非洲',
-  '大洋洲',
-] as const;
-
-export type Confederation = (typeof confederations)[number];
+export const confederations: ConfederationCode[] = [
+  'all',
+  'uefa',
+  'conmebol',
+  'concacaf',
+  'afc',
+  'caf',
+  'ofc',
+]
 
 const flagImages = import.meta.glob<string>('../assets/flags/*.svg', {
   eager: true,
   query: '?url',
   import: 'default',
-});
+})
 
 function flagImageFor(id: string): string {
-  return flagImages[`../assets/flags/${id}.svg`] ?? '';
+  return flagImages[`../assets/flags/${id}.svg`] ?? ''
 }
 
 const teamSeed = [
-  ['germany', '德国', 'Germany', '欧洲'],
-  ['spain', '西班牙', 'Spain', '欧洲'],
-  ['france', '法国', 'France', '欧洲'],
-  ['england', '英格兰', 'England', '欧洲'],
-  ['portugal', '葡萄牙', 'Portugal', '欧洲'],
-  ['netherlands', '荷兰', 'Netherlands', '欧洲'],
-  ['italy', '意大利', 'Italy', '欧洲'],
-  ['croatia', '克罗地亚', 'Croatia', '欧洲'],
-  ['belgium', '比利时', 'Belgium', '欧洲'],
-  ['switzerland', '瑞士', 'Switzerland', '欧洲'],
-  ['denmark', '丹麦', 'Denmark', '欧洲'],
-  ['austria', '奥地利', 'Austria', '欧洲'],
-  ['serbia', '塞尔维亚', 'Serbia', '欧洲'],
-  ['poland', '波兰', 'Poland', '欧洲'],
-  ['turkey', '土耳其', 'Turkey', '欧洲'],
-  ['ukraine', '乌克兰', 'Ukraine', '欧洲'],
-  ['argentina', '阿根廷', 'Argentina', '南美洲'],
-  ['brazil', '巴西', 'Brazil', '南美洲'],
-  ['uruguay', '乌拉圭', 'Uruguay', '南美洲'],
-  ['colombia', '哥伦比亚', 'Colombia', '南美洲'],
-  ['ecuador', '厄瓜多尔', 'Ecuador', '南美洲'],
-  ['paraguay', '巴拉圭', 'Paraguay', '南美洲'],
-  ['usa', '美国', 'United States', '中北美'],
-  ['mexico', '墨西哥', 'Mexico', '中北美'],
-  ['canada', '加拿大', 'Canada', '中北美'],
-  ['jamaica', '牙买加', 'Jamaica', '中北美'],
-  ['honduras', '洪都拉斯', 'Honduras', '中北美'],
-  ['panama', '巴拿马', 'Panama', '中北美'],
-  ['japan', '日本', 'Japan', '亚洲'],
-  ['south_korea', '韩国', 'South Korea', '亚洲'],
-  ['iran', '伊朗', 'Iran', '亚洲'],
-  ['australia', '澳大利亚', 'Australia', '亚洲'],
-  ['saudi_arabia', '沙特阿拉伯', 'Saudi Arabia', '亚洲'],
-  ['qatar', '卡塔尔', 'Qatar', '亚洲'],
-  ['iraq', '伊拉克', 'Iraq', '亚洲'],
-  ['uzbekistan', '乌兹别克斯坦', 'Uzbekistan', '亚洲'],
-  ['morocco', '摩洛哥', 'Morocco', '非洲'],
-  ['senegal', '塞内加尔', 'Senegal', '非洲'],
-  ['nigeria', '尼日利亚', 'Nigeria', '非洲'],
-  ['cameroon', '喀麦隆', 'Cameroon', '非洲'],
-  ['egypt', '埃及', 'Egypt', '非洲'],
-  ['south_africa', '南非', 'South Africa', '非洲'],
-  ['tunisia', '突尼斯', 'Tunisia', '非洲'],
-  ['algeria', '阿尔及利亚', 'Algeria', '非洲'],
-  ['dr_congo', '刚果（金）', 'DR Congo', '非洲'],
-  ['new_zealand', '新西兰', 'New Zealand', '大洋洲'],
-  ['indonesia', '印度尼西亚', 'Indonesia', '亚洲'],
-  ['trinidad', '特立尼达和多巴哥', 'Trinidad & Tobago', '中北美'],
-] as const;
+  ['germany', 'Germany', '德国', 'Alemanha', 'Alemania', 'uefa'],
+  ['spain', 'Spain', '西班牙', 'Espanha', 'España', 'uefa'],
+  ['france', 'France', '法国', 'França', 'Francia', 'uefa'],
+  ['england', 'England', '英格兰', 'Inglaterra', 'Inglaterra', 'uefa'],
+  ['portugal', 'Portugal', '葡萄牙', 'Portugal', 'Portugal', 'uefa'],
+  ['netherlands', 'Netherlands', '荷兰', 'Países Baixos', 'Países Bajos', 'uefa'],
+  ['italy', 'Italy', '意大利', 'Itália', 'Italia', 'uefa'],
+  ['croatia', 'Croatia', '克罗地亚', 'Croácia', 'Croacia', 'uefa'],
+  ['belgium', 'Belgium', '比利时', 'Bélgica', 'Bélgica', 'uefa'],
+  ['switzerland', 'Switzerland', '瑞士', 'Suíça', 'Suiza', 'uefa'],
+  ['denmark', 'Denmark', '丹麦', 'Dinamarca', 'Dinamarca', 'uefa'],
+  ['austria', 'Austria', '奥地利', 'Áustria', 'Austria', 'uefa'],
+  ['serbia', 'Serbia', '塞尔维亚', 'Sérvia', 'Serbia', 'uefa'],
+  ['poland', 'Poland', '波兰', 'Polônia', 'Polonia', 'uefa'],
+  ['turkey', 'Turkey', '土耳其', 'Turquia', 'Turquía', 'uefa'],
+  ['ukraine', 'Ukraine', '乌克兰', 'Ucrânia', 'Ucrania', 'uefa'],
+  ['argentina', 'Argentina', '阿根廷', 'Argentina', 'Argentina', 'conmebol'],
+  ['brazil', 'Brazil', '巴西', 'Brasil', 'Brasil', 'conmebol'],
+  ['uruguay', 'Uruguay', '乌拉圭', 'Uruguai', 'Uruguay', 'conmebol'],
+  ['colombia', 'Colombia', '哥伦比亚', 'Colômbia', 'Colombia', 'conmebol'],
+  ['ecuador', 'Ecuador', '厄瓜多尔', 'Equador', 'Ecuador', 'conmebol'],
+  ['paraguay', 'Paraguay', '巴拉圭', 'Paraguai', 'Paraguay', 'conmebol'],
+  ['usa', 'United States', '美国', 'Estados Unidos', 'Estados Unidos', 'concacaf'],
+  ['mexico', 'Mexico', '墨西哥', 'México', 'México', 'concacaf'],
+  ['canada', 'Canada', '加拿大', 'Canadá', 'Canadá', 'concacaf'],
+  ['jamaica', 'Jamaica', '牙买加', 'Jamaica', 'Jamaica', 'concacaf'],
+  ['honduras', 'Honduras', '洪都拉斯', 'Honduras', 'Honduras', 'concacaf'],
+  ['panama', 'Panama', '巴拿马', 'Panamá', 'Panamá', 'concacaf'],
+  ['trinidad', 'Trinidad & Tobago', '特立尼达和多巴哥', 'Trinidad e Tobago', 'Trinidad y Tobago', 'concacaf'],
+  ['japan', 'Japan', '日本', 'Japão', 'Japón', 'afc'],
+  ['south_korea', 'South Korea', '韩国', 'Coreia do Sul', 'Corea del Sur', 'afc'],
+  ['iran', 'Iran', '伊朗', 'Irã', 'Irán', 'afc'],
+  ['australia', 'Australia', '澳大利亚', 'Austrália', 'Australia', 'afc'],
+  ['saudi_arabia', 'Saudi Arabia', '沙特阿拉伯', 'Arábia Saudita', 'Arabia Saudita', 'afc'],
+  ['qatar', 'Qatar', '卡塔尔', 'Catar', 'Catar', 'afc'],
+  ['iraq', 'Iraq', '伊拉克', 'Iraque', 'Irak', 'afc'],
+  ['uzbekistan', 'Uzbekistan', '乌兹别克斯坦', 'Uzbequistão', 'Uzbekistán', 'afc'],
+  ['indonesia', 'Indonesia', '印度尼西亚', 'Indonésia', 'Indonesia', 'afc'],
+  ['morocco', 'Morocco', '摩洛哥', 'Marrocos', 'Marruecos', 'caf'],
+  ['senegal', 'Senegal', '塞内加尔', 'Senegal', 'Senegal', 'caf'],
+  ['nigeria', 'Nigeria', '尼日利亚', 'Nigéria', 'Nigeria', 'caf'],
+  ['cameroon', 'Cameroon', '喀麦隆', 'Camarões', 'Camerún', 'caf'],
+  ['egypt', 'Egypt', '埃及', 'Egito', 'Egipto', 'caf'],
+  ['south_africa', 'South Africa', '南非', 'África do Sul', 'Sudáfrica', 'caf'],
+  ['tunisia', 'Tunisia', '突尼斯', 'Tunísia', 'Túnez', 'caf'],
+  ['algeria', 'Algeria', '阿尔及利亚', 'Argélia', 'Argelia', 'caf'],
+  ['dr_congo', 'DR Congo', '刚果（金）', 'RD Congo', 'RD Congo', 'caf'],
+  ['new_zealand', 'New Zealand', '新西兰', 'Nova Zelândia', 'Nueva Zelanda', 'ofc'],
+] as const
 
-export const teams: Team[] = teamSeed.map(([id, name, nameEn, confederation]) => ({
+export const teams: Team[] = teamSeed.map(([id, nameEn, nameZh, namePt, nameEs, confederation]) => ({
   id,
-  name,
+  name: nameZh,
   nameEn,
+  names: {
+    'pt-BR': namePt,
+    es: nameEs,
+    en: nameEn,
+    zh: nameZh,
+  },
   confederation,
   flagImage: flagImageFor(id),
-}));
+}))
 
-export function getTeamById(id: string): Team | undefined {
-  return teams.find((team) => team.id === id);
+export function getTeamName(team: Team, language: LanguageCode): string {
+  return team.names[language] ?? team.nameEn
 }
 
-export function getTeamsByConfederation(confederation: string): Team[] {
-  if (confederation === '全部') return teams;
-  return teams.filter((team) => team.confederation === confederation);
+export function getTeamById(id: string): Team | undefined {
+  return teams.find((team) => team.id === id)
+}
+
+export function getTeamsByConfederation(confederation: ConfederationCode): Team[] {
+  if (confederation === 'all') return teams
+  return teams.filter((team) => team.confederation === confederation)
 }

@@ -56,6 +56,9 @@ export async function sharePoster(blob: Blob, title: string = '2026 世界杯冠
     if ((error as Error).name === 'AbortError') {
       return true;
     }
+    if ((error as Error).name === 'NotAllowedError') {
+      return false;
+    }
     console.error('Share failed:', error);
     return false;
   }
