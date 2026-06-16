@@ -1,6 +1,7 @@
 export interface VoteRecord {
   champion: string;
   runnerUp: string;
+  predictorName: string;
   timestamp: number;
 }
 
@@ -11,7 +12,7 @@ export interface VoteStats {
 }
 
 export interface VoteService {
-  submitVote(champion: string, runnerUp: string): Promise<void>;
+  submitVote(champion: string, runnerUp: string, predictorName: string): Promise<void>;
   getVoteStats(): Promise<VoteStats[]>;
   getTotalVotes(): Promise<number>;
 }

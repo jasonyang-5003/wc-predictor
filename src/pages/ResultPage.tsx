@@ -17,6 +17,7 @@ export default function ResultPage() {
 
   const championId = searchParams.get('champion') || ''
   const runnerUpId = searchParams.get('runnerUp') || ''
+  const predictorName = searchParams.get('name') || ''
 
   const [stats, setStats] = useState<VoteStats[]>([])
   const [totalVotes, setTotalVotes] = useState(0)
@@ -101,7 +102,6 @@ export default function ResultPage() {
           >
             <p className="text-[11px] font-black uppercase tracking-[0.24em] text-gold/72">{t.storyPoster}</p>
             <h1 className="gold-text mt-2 text-4xl font-black leading-tight">{t.posterGenerated}</h1>
-            <p className="mt-2 text-sm font-medium text-white/56">{t.posterSubtitle}</p>
           </motion.div>
 
           <motion.div
@@ -110,11 +110,11 @@ export default function ResultPage() {
             transition={{ duration: 0.65, ease: 'easeOut' }}
             className="poster-preview-frame h-[653px] w-[367px] max-w-[92vw] overflow-hidden rounded-[28px]"
           >
-            <PosterCard championId={championId} runnerUpId={runnerUpId} preview />
+            <PosterCard championId={championId} runnerUpId={runnerUpId} predictorName={predictorName} preview />
           </motion.div>
 
           <div className="pointer-events-none fixed -left-[9999px] top-0">
-            <PosterCard ref={posterRef} championId={championId} runnerUpId={runnerUpId} />
+            <PosterCard ref={posterRef} championId={championId} runnerUpId={runnerUpId} predictorName={predictorName} />
           </div>
 
           <div className="mt-5 w-full max-w-[367px]">
@@ -123,6 +123,34 @@ export default function ResultPage() {
         </section>
 
         <section className="space-y-5">
+          <div className="section-frame rounded-[28px] p-5">
+            <p className="text-[11px] font-black uppercase tracking-[0.24em] text-gold/72">{t.rewardPathTitle}</p>
+            <div className="mt-4 grid gap-3 sm:grid-cols-4">
+              {t.rewardSteps.map((step, index) => (
+                <div key={step} className="relative rounded-[20px] border border-gold/18 bg-gold/[0.08] p-4 shadow-[0_18px_46px_rgba(0,0,0,0.18)]">
+                  <div className="mb-3 grid h-9 w-9 place-items-center rounded-full bg-gold text-sm font-black text-primary">{index + 1}</div>
+                  <div className="text-sm font-black leading-5 text-white">{step}</div>
+                  {index < t.rewardSteps.length - 1 && (
+                    <div className="absolute -right-2 top-1/2 hidden h-4 w-4 -translate-y-1/2 rotate-45 border-r-2 border-t-2 border-gold/60 sm:block" />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="overflow-hidden rounded-[28px] border border-gold/24 bg-[radial-gradient(circle_at_18%_0%,rgba(255,227,154,0.18),transparent_34%),linear-gradient(135deg,rgba(231,185,87,0.12),rgba(255,255,255,0.045))] p-5 shadow-[0_24px_90px_rgba(0,0,0,0.28)]">
+            <h2 className="text-2xl font-black leading-tight text-gold-light">{t.rewardCardTitle}</h2>
+            <p className="mt-3 text-sm font-semibold leading-7 text-white/72">{t.rewardCardBody}</p>
+            <a
+              href="https://discord.gg/nryRexgaJX"
+              target="_blank"
+              rel="noreferrer"
+              className="primary-cta mt-5 inline-flex min-h-12 rounded-full px-6 py-3 text-sm font-black transition-transform hover:-translate-y-0.5 active:scale-[0.98]"
+            >
+              {t.joinDiscord}
+            </a>
+          </div>
+
           <div className="section-frame rounded-[28px] p-5">
             {loading ? (
               <div className="flex min-h-[360px] flex-col items-center justify-center gap-3 text-white/52">

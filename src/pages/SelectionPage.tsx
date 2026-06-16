@@ -16,6 +16,8 @@ export default function SelectionPage() {
   const [step, setStep] = useState<1 | 2>(1)
   const [champion, setChampion] = useState<Team | null>(null)
   const [runnerUp, setRunnerUp] = useState<Team | null>(null)
+  const [predictorName, setPredictorName] = useState('')
+  const [nameError, setNameError] = useState('')
   const [submitting, setSubmitting] = useState(false)
 
   const handleSelectChampion = useCallback((team: Team) => {
@@ -30,10 +32,16 @@ export default function SelectionPage() {
 
   const handleSubmit = async () => {
     if (!champion || !runnerUp) return
+    const trimmedName = predictorName.trim()
+    if (!trimmedName) {
+      setNameError(t.predictorNameRequired)
+      return
+    }
+
     setSubmitting(true)
     try {
-      await mockVoteService.submitVote(champion.id, runnerUp.id)
-      navigate(`/result?champion=${champion.id}&runnerUp=${runnerUp.id}`)
+      await mockVoteService.submitVote(champion.id, runnerUp.id, trimmedName)
+      navigate(`/result?champion=${champion.id}&runnerUp=${runnerUp.id}&name=${encodeURIComponent(trimmedName)}`)
     } catch (error) {
       console.error('Submit failed:', error)
     } finally {
@@ -73,6 +81,7 @@ export default function SelectionPage() {
               className="gold-text mx-auto max-w-[780px] text-[clamp(38px,10.5vw,96px)] font-black leading-[0.98] lg:mx-0"
             >
               <span className="block sm:inline">{t.heroTitleLine1}</span>
+              <span className="hidden sm:inline"> </span>
               <span className="block sm:inline">{t.heroTitleLine2}</span>
             </motion.h1>
 
@@ -184,22 +193,38 @@ export default function SelectionPage() {
         >
           <div className="confirm-dock mx-auto max-w-4xl rounded-[24px] p-3">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <div className="grid flex-1 grid-cols-[1fr_auto_1fr] items-center gap-3">
-                <div className="flex min-w-0 items-center gap-3 rounded-[16px] bg-gold/12 p-3">
-                  <FlagImage team={champion} className="h-9 w-12" />
-                  <div className="min-w-0">
-                    <div className="text-[10px] font-black uppercase tracking-[0.18em] text-gold/70">{t.champion}</div>
-                    <div className="truncate text-sm font-black text-gold-light">{getTeamName(champion, language)}</div>
+              <div className="flex flex-1 flex-col gap-3">
+                <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
+                  <div className="flex min-w-0 items-center gap-3 rounded-[16px] bg-gold/12 p-3">
+                    <FlagImage team={champion} className="h-9 w-12" />
+                    <div className="min-w-0">
+                      <div className="text-[10px] font-black uppercase tracking-[0.18em] text-gold/70">{t.champion}</div>
+                      <div className="truncate text-sm font-black text-gold-light">{getTeamName(champion, language)}</div>
+                    </div>
+                  </div>
+                  <span className="text-xs font-black text-white/32">VS</span>
+                  <div className="flex min-w-0 items-center gap-3 rounded-[16px] bg-white/[0.06] p-3">
+                    <FlagImage team={runnerUp} className="h-9 w-12" />
+                    <div className="min-w-0">
+                      <div className="text-[10px] font-black uppercase tracking-[0.18em] text-white/46">{t.runnerUp}</div>
+                      <div className="truncate text-sm font-black text-white">{getTeamName(runnerUp, language)}</div>
+                    </div>
                   </div>
                 </div>
-                <span className="text-xs font-black text-white/32">VS</span>
-                <div className="flex min-w-0 items-center gap-3 rounded-[16px] bg-white/[0.06] p-3">
-                  <FlagImage team={runnerUp} className="h-9 w-12" />
-                  <div className="min-w-0">
-                    <div className="text-[10px] font-black uppercase tracking-[0.18em] text-white/46">{t.runnerUp}</div>
-                    <div className="truncate text-sm font-black text-white">{getTeamName(runnerUp, language)}</div>
-                  </div>
-                </div>
+                <label className="block">
+                  <span className="mb-1.5 block text-[10px] font-black uppercase tracking-[0.18em] text-white/48">{t.predictorNameLabel}</span>
+                  <input
+                    value={predictorName}
+                    onChange={(event) => {
+                      setPredictorName(event.target.value)
+                      if (nameError) setNameError('')
+                    }}
+                    maxLength={24}
+                    placeholder={t.predictorNamePlaceholder}
+                    className="min-h-12 w-full rounded-[16px] border border-white/12 bg-black/32 px-4 text-sm font-bold text-white outline-none transition-colors placeholder:text-white/28 focus:border-gold/55"
+                  />
+                  {nameError && <span className="mt-1.5 block text-xs font-bold text-gold-light">{nameError}</span>}
+                </label>
               </div>
 
               <motion.button
